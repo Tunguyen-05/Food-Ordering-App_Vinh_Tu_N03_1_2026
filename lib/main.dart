@@ -10,8 +10,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Food Ordering App',
       debugShowCheckedModeBanner: false,
+      title: 'Food Ordering App',
       home: const MyHomePage(),
     );
   }
@@ -22,40 +22,113 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int idFood = 1;
+    String tenFood = "Trà sữa";
+    int gia = 30000;
+    String loai = "Đồ uống";
+
+    // Đối tượng món ăn
+    var food = {
+      'idFood': idFood,
+      'tenFood': tenFood,
+      'gia': gia,
+      'loai': loai,
+    };
+
+    // Danh sách người dùng
+    var Listuser = [
+      {
+      'idUser': 1,
+      'tenUser': 'Nguyễn Tú',
+      },
+      {
+        'idUser': 2,
+        'tenUser': 'Lê Vinh',
+      }
+    ];
+
+    // Danh sách món ăn
+    var listFood = [
+      {
+        'idFood': 1,
+        'tenFood': 'Trà sữa',
+        'gia': 30000,
+        'loai': 'Đồ uống',
+      },
+      {
+        'idFood': 2,
+        'tenFood': 'Bánh mì',
+        'gia': 20000,
+        'loai': 'Đồ ăn',
+      },
+      {
+        'idFood': 3,
+        'tenFood': 'Cơm gà',
+        'gia': 50000,
+        'loai': 'Đồ ăn',
+      },
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Food Ordering App'),
+        title: const Text("Food Ordering App"),
         backgroundColor: Colors.lightBlueAccent,
       ),
-      body: Center(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Thành viên nhóm',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              "1. Đối tượng món ăn",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
+            Text("idFood: ${food['idFood']}"),
+            Text("tenFood: ${food['tenFood']}"),
+            Text("gia: ${food['gia']}"),
+            Text("loai: ${food['loai']}"),
 
-            Card(
-              margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              child: const ListTile(
-                leading: Icon(Icons.person),
-                title: Text('Vinh'),
-                subtitle: Text('MSSV: 23010507 '),
-              ),
+            const SizedBox(height: 25),
+
+            const Text(
+              "2. Danh sách người dùng",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
 
-            Card(
-              margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              child: const ListTile(
-                leading: Icon(Icons.person),
-                title: Text('Tú'),
-                subtitle: Text('MSSV: 23010645'),
-              ),
+            const SizedBox(height: 10),
+            Column(
+              children: Listuser.map((userItem) {
+                return Row(
+                  children: [
+                    Text("ID: ${userItem['idUser']}"),
+                    const SizedBox(width: 20),
+                    Text("Tên: ${userItem['tenUser']}"),
+                  ],
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 25),
+
+            const Text(
+              "3. Danh sách món ăn",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+
+            Column(
+              children: listFood.map((foodItem) {
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  child: ListTile(
+                    leading: const Icon(Icons.fastfood),
+                    title: Text("${foodItem['tenFood']}"),
+                    subtitle: Text(
+                      "ID: ${foodItem['idFood']} - Giá: ${foodItem['gia']} - Loại: ${foodItem['loai']}",
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
           ],
         ),
