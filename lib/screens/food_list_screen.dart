@@ -25,12 +25,11 @@ class FoodListScreen extends StatelessWidget {
         title: Text(category.name),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // ===== HERO SECTION =====
+            // ===== HERO SECTION   =====
             Container(
               width: double.infinity,
               height: 320,
@@ -68,9 +67,7 @@ class FoodListScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: _ImageBox(
-                      imageUrl: topImages.isNotEmpty
-                          ? topImages[0].imageUrl
-                          : 'https://picsum.photos/400/300',
+                      imageUrl: topImages[0].imageUrl
                     ),
                   ),
                   const SizedBox(width: 18),
@@ -78,7 +75,7 @@ class FoodListScreen extends StatelessWidget {
                     child: _ImageBox(
                       imageUrl: topImages.length > 1
                           ? topImages[1].imageUrl
-                          : 'https://picsum.photos/400/300',
+                          : topImages[0].imageUrl,
                     ),
                   ),
                 ],
