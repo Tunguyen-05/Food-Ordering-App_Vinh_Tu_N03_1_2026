@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'about_screen.dart';
+import '../widgets/Checkout.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -14,9 +15,10 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
 
-  final List<Widget> screens = const [
-    HomeScreen(),
-    AboutScreen(),
+  final List<Widget> screens = [
+    const HomeScreen(),
+    const CheckoutScreen(),
+    const AboutScreen(),
   ];
 
   @override
@@ -36,6 +38,10 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Checkout',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info),

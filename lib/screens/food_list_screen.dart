@@ -222,7 +222,6 @@ class _ImageBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 170,
-      color: const Color(0xffEAEAEA),
       child: Image.network(
         imageUrl,
         fit: BoxFit.cover,
