@@ -12,7 +12,6 @@ class AboutScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// 🔥 HERO IMAGE
             ClipRRect(
               borderRadius: BorderRadius.circular(24),
               child: Stack(
