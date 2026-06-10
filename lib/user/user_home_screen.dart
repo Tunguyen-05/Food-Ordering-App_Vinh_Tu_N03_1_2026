@@ -19,7 +19,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   String _selectedCategory = 'Tất cả';
   bool _isLoading = true;
   final TextEditingController _searchController = TextEditingController();
-  List<Product> _searchResults = [];
   bool _isSearching = false;
 
   @override
@@ -36,8 +35,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
 
   Future<void> _loadData() async {
     setState(() => _isLoading = true);
-    _products = await _productService.getAllProducts();
-    _categories = ['Tất cả', ...await _productService.getCategories()];
+    _products = _productService.getAllProducts();
+    _categories = ['Tất cả', ..._productService.getCategories()];
     setState(() => _isLoading = false);
   }
 
@@ -212,7 +211,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               child: Image.network(
                 product.imageUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
+                errorBuilder: (_, _, _) => Container(
                   color: Colors.orange[50],
                   child: const Icon(
                     Icons.restaurant,

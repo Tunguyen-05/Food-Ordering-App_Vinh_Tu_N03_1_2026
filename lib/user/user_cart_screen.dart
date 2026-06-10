@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
-import '../services/order_service.dart';
 import '../providers/auth_provider.dart';
 import 'checkout_screen.dart';
 
@@ -57,7 +56,7 @@ class UserCartScreen extends StatelessWidget {
                                 width: 80,
                                 height: 80,
                                 fit: BoxFit.cover,
-                                errorBuilder: (_, __, ___) => Container(
+                                errorBuilder: (_, _, _) => Container(
                                   width: 80,
                                   height: 80,
                                   color: Colors.orange[50],
@@ -156,7 +155,7 @@ class UserCartScreen extends StatelessWidget {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Colors.grey.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, -2),
                     ),

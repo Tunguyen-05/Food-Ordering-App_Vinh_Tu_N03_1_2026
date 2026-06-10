@@ -25,7 +25,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
   String _shippingType = 'Thường';
-  String _paymentMethod = 'COD';
+  final String _paymentMethod = 'COD';
   bool _isLoading = false;
   int _shippingFee = 10000;
 
@@ -62,9 +62,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     try {
       final auth = context.read<AuthProvider>();
       final orderService = OrderService();
-      final orderTotal = widget.total - _shippingFee + _shippingFee;
 
-      final orderId = await orderService.createOrder(
+      final orderId = orderService.createOrder(
         userId: auth.currentUser!.id!,
         customerName: _nameController.text.trim(),
         customerPhone: _phoneController.text.trim(),
@@ -76,7 +75,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         items: widget.cartItems,
       );
 
-      await auth.updateAddress(_addressController.text.trim());
+      auth.updateAddress(_addressController.text.trim());
       if (mounted) {
         context.read<CartProvider>().clear();
         _showSuccessDialog(orderId);
@@ -195,28 +194,40 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-            ..._shippingOptions.entries.map((entry) {
-              return RadioListTile<String>(
-                title: Text(entry.key),
-                subtitle: Text(_formatPrice(entry.value)),
-                value: entry.key,
-                groupValue: _shippingType,
-                onChanged: (value) {
+            RadioGroup<String>(
+              groupValue: _shippingType,
+              onChanged: (value) {
+                if (value != null) {
                   setState(() {
-                    _shippingType = value!;
-                    _shippingFee = entry.value;
+                    _shippingType = value;
+                    _shippingFee = _shippingOptions[value] ?? 10000;
                   });
-                },
-                secondary: Icon(
-                  entry.key == 'Thường'
-                      ? Icons.local_shipping
-                      : entry.key == 'Nhanh'
-                          ? Icons.speed
-                          : Icons.bolt,
-                  color: Colors.orange,
-                ),
-              );
-            }),
+                }
+              },
+              child: Column(
+                children: _shippingOptions.entries.map((entry) {
+                  return ListTile(
+                    leading: Radio<String>(
+                      value: entry.key,
+                      // ignore: deprecated_member_use
+                      groupValue: _shippingType,
+                      // ignore: deprecated_member_use
+                      onChanged: (v) {},
+                    ),
+                    title: Text(entry.key),
+                    subtitle: Text(_formatPrice(entry.value)),
+                    trailing: Icon(
+                      entry.key == 'Thường'
+                          ? Icons.local_shipping
+                          : entry.key == 'Nhanh'
+                              ? Icons.speed
+                              : Icons.bolt,
+                      color: Colors.orange,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
             const SizedBox(height: 16),
             const Text(
               'Phương thức thanh toán',
@@ -234,16 +245,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 children: [
                   const Icon(Icons.money, color: Colors.orange),
                   const SizedBox(width: 12),
-                  const Text(
-                    'Thanh toán khi nhận hàng (COD)',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  const Expanded(
+                    child: Text(
+                      'Thanh toán khi nhận hàng (COD)',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  const Spacer(),
-                  Radio<String>(
-                    value: 'COD',
-                    groupValue: _paymentMethod,
-                    onChanged: (value) => setState(() => _paymentMethod = value!),
-                  ),
+                  const Icon(Icons.check_circle, color: Colors.green),
                 ],
               ),
             ),

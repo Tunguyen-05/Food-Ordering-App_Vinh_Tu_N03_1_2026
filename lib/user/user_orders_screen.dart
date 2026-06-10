@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/order.dart';
-import '../models/order_item.dart';
 import '../providers/auth_provider.dart';
 import '../services/order_service.dart';
 
@@ -30,7 +29,7 @@ class _UserOrdersScreenState extends State<UserOrdersScreen> {
       return;
     }
     setState(() => _isLoading = true);
-    _orders = await _orderService.getOrdersByUserId(auth.currentUser!.id!);
+    _orders = _orderService.getOrdersByUserId(auth.currentUser!.id!);
     setState(() => _isLoading = false);
   }
 
@@ -69,7 +68,7 @@ class _UserOrdersScreenState extends State<UserOrdersScreen> {
   }
 
   void _showOrderDetail(Order order) async {
-    final items = await _orderService.getOrderItems(order.id!);
+    final items = _orderService.getOrderItems(order.id!);
     if (!mounted) return;
     showDialog(
       context: context,

@@ -22,7 +22,7 @@ class _AdminProductsScreenState extends State<AdminProductsScreen> {
 
   Future<void> _loadProducts() async {
     setState(() => _isLoading = true);
-    _products = await _productService.getAllProducts();
+    _products = _productService.getAllProducts();
     setState(() => _isLoading = false);
   }
 
@@ -71,7 +71,7 @@ class _AdminProductsScreenState extends State<AdminProductsScreen> {
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  value: categories.contains(categoryController.text)
+                  initialValue: categories.contains(categoryController.text)
                       ? categoryController.text
                       : null,
                   decoration: const InputDecoration(labelText: 'Danh mục'),
@@ -113,9 +113,9 @@ class _AdminProductsScreenState extends State<AdminProductsScreen> {
                 );
 
                 if (product == null) {
-                  await _productService.addProduct(newProduct);
+                  _productService.addProduct(newProduct);
                 } else {
-                  await _productService.updateProduct(newProduct);
+                  _productService.updateProduct(newProduct);
                 }
 
                 if (context.mounted) {
@@ -145,7 +145,7 @@ class _AdminProductsScreenState extends State<AdminProductsScreen> {
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () async {
-              await _productService.deleteProduct(product.id!);
+              _productService.deleteProduct(product.id!);
               if (context.mounted) {
                 Navigator.pop(context);
                 _loadProducts();
@@ -184,7 +184,7 @@ class _AdminProductsScreenState extends State<AdminProductsScreen> {
                             width: 56,
                             height: 56,
                             fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) => Container(
+                            errorBuilder: (_, _, _) => Container(
                               width: 56,
                               height: 56,
                               color: Colors.orange[100],

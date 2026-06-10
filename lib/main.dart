@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< Updated upstream
-import 'screens/main_screen.dart';
-import 'widgets/Checkout.dart';
-
-void main() {
-=======
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 import 'providers/cart_provider.dart';
@@ -14,7 +8,6 @@ import 'screens/login_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageService.init();
->>>>>>> Stashed changes
   runApp(const FoodOrderingApp());
 }
 

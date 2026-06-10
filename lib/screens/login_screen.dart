@@ -166,37 +166,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: const Text('Chưa có tài khoản? Đăng ký ngay'),
                 ),
-                const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.orange[50],
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.orange[200]!),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.info_outline, color: Colors.orange[700], size: 18),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Tài khoản Admin',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.orange[700],
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Tài khoản: admin  |  Mật khẩu: admin123',
-                        style: TextStyle(color: Colors.orange[700], fontSize: 13),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),

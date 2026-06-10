@@ -32,7 +32,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               background: Image.network(
                 widget.product.imageUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
+                errorBuilder: (_, _, _) => Container(
                   color: Colors.orange[50],
                   child: const Icon(Icons.restaurant, size: 80, color: Colors.orange),
                 ),

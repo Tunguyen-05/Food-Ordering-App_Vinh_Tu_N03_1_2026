@@ -158,7 +158,7 @@ class UserProfileScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final auth = context.read<AuthProvider>();
-              await auth.updateAddress(controller.text.trim());
+              auth.updateAddress(controller.text.trim());
               if (context.mounted) {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(

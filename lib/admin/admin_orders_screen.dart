@@ -23,7 +23,7 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
 
   Future<void> _loadOrders() async {
     setState(() => _isLoading = true);
-    _orders = await _orderService.getAllOrders();
+    _orders = _orderService.getAllOrders();
     setState(() => _isLoading = false);
   }
 
@@ -62,7 +62,7 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
   }
 
   void _showOrderDetails(Order order) async {
-    final items = await _orderService.getOrderItems(order.id!);
+    final items = _orderService.getOrderItems(order.id!);
     if (!mounted) return;
     _showOrderDetailDialog(order, items);
   }
@@ -196,7 +196,7 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
                 );
                 return;
               }
-              await _orderService.updateOrderStatus(
+              _orderService.updateOrderStatus(
                 order.id!,
                 'cancelled',
                 cancelReason: reasonController.text,
@@ -226,7 +226,7 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
                 leading: const Icon(Icons.check_circle, color: Colors.green),
                 title: const Text('Duyệt đơn hàng'),
                 onTap: () async {
-                  await _orderService.updateOrderStatus(order.id!, 'approved');
+                  _orderService.updateOrderStatus(order.id!, 'approved');
                   if (context.mounted) {
                     Navigator.pop(context);
                     _loadOrders();
@@ -238,7 +238,7 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
                 leading: const Icon(Icons.local_shipping, color: Colors.purple),
                 title: const Text('Bắt đầu giao hàng'),
                 onTap: () async {
-                  await _orderService.updateOrderStatus(order.id!, 'shipping');
+                  _orderService.updateOrderStatus(order.id!, 'shipping');
                   if (context.mounted) {
                     Navigator.pop(context);
                     _loadOrders();
@@ -250,7 +250,7 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
                 leading: const Icon(Icons.done_all, color: Colors.green),
                 title: const Text('Hoàn thành đơn hàng'),
                 onTap: () async {
-                  await _orderService.updateOrderStatus(order.id!, 'completed');
+                  _orderService.updateOrderStatus(order.id!, 'completed');
                   if (context.mounted) {
                     Navigator.pop(context);
                     _loadOrders();

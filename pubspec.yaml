@@ -10,13 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-<<<<<<< Updated upstream
-=======
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   provider: ^6.1.2
   shared_preferences: ^2.2.3
->>>>>>> Stashed changes
 
 dev_dependencies:
   flutter_test:
